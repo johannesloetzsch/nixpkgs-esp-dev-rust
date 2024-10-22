@@ -7,4 +7,4 @@ cargo run --release
 
 It was tested using an ESP-WROOM-32 with an `LED connected at Pin 23`.
 
-![wiring](./diagram.png?raw=true))
+![wiring](./diagram.png?raw=true)
