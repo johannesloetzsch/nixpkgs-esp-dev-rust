@@ -15,6 +15,7 @@ pkgs.mkShell {
     gperf
     pkg-config
     cargo-generate
+    openssl  # would be required for `cargo install cargo-generate` — however, cargo-generate is already provided
 
     cmake
     ninja
@@ -31,8 +32,6 @@ pkgs.mkShell {
     python3
     python3Packages.pip
     python3Packages.virtualenv
-
-    openssl  # required for cargo install cargo-generate
   ];
   shellHook = ''
     # fixes libstdc++ issues and libgl.so issues

@@ -30,23 +30,7 @@ is provided by the [fork from hsel-netsys](https://github.com/hsel-netsys/nixpkg
 
 ## Workflow to get a Rust Hello World on ESP-WROOM-32
 
-### 1. Edit `buildInputs` and `LD_LIBRARY_PATH`
-
-To later build and use `cargo-generate`, we need `pkgs.openssl`.
-
-So first we [edit `shells/esp32s2-idf-rust.nix`](https://github.com/johannesloetzsch/nixpkgs-esp-dev-rust/compare/321d69c4..686e20be#diff-d581342908253b847eb7c7106ff2e9bb8d9de94e22133166b8106e6ec8db10caR34)
-
-```diff
-+    openssl  # required for cargo install cargo-generate
-   ];
-   shellHook = ''
-     # fixes libstdc++ issues and libgl.so issues
--    export LD_LIBRARY_PATH=${pkgs.lib.makeLibraryPath [ pkgs.libxml2 pkgs.zlib pkgs.stdenv.cc.cc.lib ]}
-+    export LD_LIBRARY_PATH=${pkgs.lib.makeLibraryPath [ pkgs.libxml2 pkgs.zlib pkgs.stdenv.cc.cc.lib pkgs.openssl ]}
-```
-
-
-### 2. Use `esp-idf-esp32` instead of `esp-idf-esp32s2`
+### 1. Preparation: Use `esp-idf-esp32` instead of `esp-idf-esp32s2`
 
 It's important to build for the correct version of the [ESP32-xx family](https://en.wikipedia.org/wiki/ESP32#ESP32-xx_family).
 The ESP-Board we use in this example is a [`ESP-WROOM-32`](https://en.wikipedia.org/wiki/ESP32#Printed_circuit_boards). It contains the ["original" `ESP32`](https://en.wikipedia.org/wiki/ESP32#ESP32) (without any suffix).
@@ -82,16 +66,16 @@ For convenience we add the new shell in flake.nix as devShell and set it as defa
 ```
 
 
-### 3. Ready to follow the nix-independent instructions :)
+### 2. Ready to follow the nix-independent instructions :)
 
 We can now run `nix develop` and follow the instructions from [https://docs.esp-rs.org](https://docs.esp-rs.org/book/writing-your-own-application/generate-project/index.html):
 
 ```sh
 nix develop
 
-cargo install cargo-generate
-cargo generate esp-rs/esp-template
-cd nix-rust-esp-blink/  ## or whatever project name we entered
+#cargo install cargo-generate  ## not required, since the dev-shell provides cargo-generate
+cargo generate esp-rs/esp-template -n nix-rust-esp-blink
+cd nix-rust-esp-blink
 
 cargo build
 cargo run --release
