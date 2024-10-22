@@ -3,7 +3,7 @@ pkgs.mkShell {
   name = "esp-idf";
 
   buildInputs = with pkgs; [
-    esp-idf-esp32s2
+    esp-idf-esp32
 
     # Tools required to use ESP-IDF.
     git
