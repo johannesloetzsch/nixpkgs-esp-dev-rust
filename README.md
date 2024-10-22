@@ -1,3 +1,9 @@
+## TL;DR
+
+The working example can be found at:
+[./nix-rust-esp-blink](./nix-rust-esp-blink)
+
+
 ## Workflow to get a Rust Hello World on ESP-WROOM-32
 
 ```sh
